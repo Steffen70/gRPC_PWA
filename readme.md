@@ -9,7 +9,8 @@ pwsh -File ".\scripts\CheckPrerequisites.ps1"
 ```
 
 To install the required tools, follow the instructions below:
-(You need to start the terminal as an administrator to install the tools via chocolatey.)
+
+(You need to start the terminal as administrator to install the tools via chocolatey.)
 
 -   Install **.NET** version **8.0** via chocolatey `choco install dotnet-sdk --version=8.0`.
 -   Install **Node** version **v20.11.1** via chocolatey `choco install nodejs --version=20.11.1`.
@@ -40,6 +41,27 @@ pwsh -File ".\scripts\MakeSolution.ps1" -directoryPath ".\server_side"
 ```
 
 This script will generate a dotnet solution in the specified directory and add all projects to it.
+
+## Protocol Buffers and gRPC
+
+### Generate gRPC files for the .NET Core Backend
+
+The gRPC files are referenced in the `Common.csproj` file. The Protobuf files will automatically be compiled to C# files when the project is built.
+
+### Generate Protobuf and gRPC-Web files
+
+I've added a batch file to the `client_side` directory that will generate the Protobuf and gRPC-Web files for the client.
+
+## Image Resources
+
+I've incorporated an additional script into the build process.
+This script dynamically updates the `Seventy.Common.ResourceAccessor.ResourceName` enum with the names of all images.
+
+To retrieve SVG images programmatically, utilize the `GetSvg` method available on the enum, as shown below:
+
+```csharp
+var svg = ResourceAccessor.ResourceName.image_name.GetSvg();
+```
 
 ## Versioning in the Project
 

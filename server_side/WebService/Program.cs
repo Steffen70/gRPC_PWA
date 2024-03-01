@@ -75,9 +75,7 @@ public class Program
 
         // Configure the HTTP request pipeline.
         app.UseHttpsRedirection();
-
-        app.UseStaticFiles();
-
+        
         app.UseGrpcWeb(new GrpcWebOptions { DefaultEnabled = true });
 
         app.UseAuthentication();

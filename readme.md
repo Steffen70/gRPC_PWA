@@ -2,30 +2,25 @@
 
 ## Prerequisites
 
--   **PowerShell Version**: Ensure you have PowerShell version 7.4.1 installed to match the .NET 8.0 target version.
--   **.NET Version**: This project targets .NET 8.0.
+You can run the following commands to check the versions of the required tools:
 
-## Installation
+```bash
+pwsh -File ".\scripts\CheckPrerequisites.ps1"
+```
 
-1. **Install .NET 8.0**:
+To install the required tools, follow the instructions below:
+(You need to start the terminal as an administrator to install the tools via chocolatey.)
 
-    - Download and install .NET 8.0 SDK from the official website.
-    - Make sure it is added to your system's PATH.
+-   Install **.NET** version **8.0** via chocolatey `choco install dotnet-sdk --version=8.0`.
+-   Install **Node** version **v20.11.1** via chocolatey `choco install nodejs --version=20.11.1`.
+-   Install **PowerShell** version **7.4.1** via Chocolaty `choco install powershell-core --version=7.4.1`
+-   Install **Protobuf compiler** version **25.2** via chocolatey `choco install protoc --version=25.2`.
+-   Download the **Protobuf gRPC-Web Plugin** version **1.5.0** from the [official GitHub repository](https://github.com/grpc/grpc-web/releases) and rename the file to `protoc-gen-grpc-web.exe`.
 
-2. **Install Node.js**:
+Make sure all these tools are installed on your machine and are available in your PATH.
 
-    - Install Node version v20.11.1 via chocolatey `choco install nodejs --version=20.11.1`.
-    - Make sure it is added to your system's PATH.
-
-3. **Install PowerShell 7.4.1**:
-
-    - Download and install PowerShell 7.4.1
-    - Make sure it is added to your system's PATH.
-    - E.g. install with Chocolaty `choco install powershell-core --version=7.4.1`
-
-4. **NuGet Cache Location**:
-
-    - Confirm that your NuGet cache is located at the default location: `%USERPROFILE%\.nuget\packages\`.
+**Note**:
+Confirm that your NuGet cache is located at the default location: `%USERPROFILE%\.nuget\packages\`.
 
 ## Guide on how to Run the Project
 
@@ -41,7 +36,7 @@ If you don't need a solution file and just build the project, you can skip this 
 To generate the dotnet solution, run the following command in the root directory of the project:
 
 ```bash
-.\scripts\MakeSolution.ps1 -directoryPath ".\server_side"
+pwsh -File ".\scripts\MakeSolution.ps1" -directoryPath ".\server_side"
 ```
 
 This script will generate a dotnet solution in the specified directory and add all projects to it.

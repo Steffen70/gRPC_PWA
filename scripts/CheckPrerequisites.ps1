@@ -1,0 +1,43 @@
+$toolVersions = @{}
+
+# PowerShell Core version
+$pwshVersion = $PSVersionTable.PSVersion.ToString()
+$toolVersions["pwsh"] = $pwshVersion
+
+function Get-CommandVersion {
+    param (
+        [string]$command,
+        [string]$arguments = "--version",
+        [string]$successPattern = ""
+    )
+    try {
+        # Split the command and its arguments
+        $output = & $command $arguments
+        if ($successPattern -ne "") {
+            if ($output -match $successPattern) {
+                $output = $matches[1]
+            }
+        }
+        $toolVersions[$command] = $output
+    } catch {
+        $toolVersions[$command] = "Not installed"
+    }
+}
+
+
+# .NET version
+Get-CommandVersion -command "dotnet"
+
+# Node.js version
+Get-CommandVersion -command "node"
+
+# Protobuf Compiler version
+Get-CommandVersion -command "protoc" -successPattern "libprotoc (\d+\.\d+)"
+
+# Assuming you have a specific execution command for the Protobuf gRPC-Web Plugin
+Get-CommandVersion -command "protoc-gen-grpc-web" -arguments "--version" -successPattern "(\d+\.\d+\.\d+)"
+
+
+$toolVersions.GetEnumerator() | Sort-Object Name | ForEach-Object { 
+    Write-Host "$($_.Name): $($_.Value)" 
+}

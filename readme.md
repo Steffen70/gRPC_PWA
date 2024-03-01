@@ -12,7 +12,7 @@ To install the required tools, follow the instructions below:
 
 (You need to start the terminal as administrator to install the tools via chocolatey.)
 
--   Install **.NET** version **8.0** via chocolatey `choco install dotnet-sdk --version=8.0`.
+-   Install **.NET** version **8.0** directly from the [official website](https://dotnet.microsoft.com/download/dotnet/8.0).
 -   Install **Node** version **v20.11.1** via chocolatey `choco install nodejs --version=20.11.1`.
 -   Install **PowerShell** version **7.4.1** via Chocolaty `choco install powershell-core --version=7.4.1`
 -   Install **Protobuf compiler** version **25.2** via chocolatey `choco install protoc --version=25.2`.

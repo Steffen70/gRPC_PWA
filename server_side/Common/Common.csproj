@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyName>Seventy.Common</AssemblyName>
+		<RootNamespace>$(AssemblyName)</RootNamespace>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Author>steffen@seventy.mx</Author>
+		<Copyright>$([System.DateTime]::Now.Year) $(Author)</Copyright>
+		<Version>0.2.7</Version>
+	</PropertyGroup>
+
+	<Target Name="ForceClean" AfterTargets="Clean">
+		<RemoveDir Directories="$(OutDir)\..\" />
+	</Target>
+
+	<Target Name="UpdateVersion" AfterTargets="Clean">
+		<Exec Command="pwsh -ExecutionPolicy Bypass -File $(MSBuildProjectDirectory)\..\..\scripts\UpdateVersion.ps1 -projectFile $(MSBuildProjectFile)" />
+	</Target>
+
+	<ItemGroup>
+		<PackageReference Include="Grpc.AspNetCore" Version="2.61.0" />
+		<PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.8.0" PrivateAssets="all" ExcludeAssets="runtime" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" PrivateAssets="all" ExcludeAssets="runtime" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.8.0" PrivateAssets="all" ExcludeAssets="runtime" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="..\..\protos\*.proto" GrpcServices="Both" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\*.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\*.svg" />
+	</ItemGroup>
+
+	<Target Name="GenerateResx" AfterTargets="Clean">
+		<Exec Command="pwsh -ExecutionPolicy Bypass -File $(MSBuildProjectDirectory)\..\..\scripts\GenerateResourceNameEnum.ps1 -projectFile $(MSBuildProjectFile)" />
+	</Target>
+
+</Project>

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "SwissPension.SP7.Common";
+
+package auth;
+
+import "google/protobuf/empty.proto";
+
+// Define a service
+service Auth {
+	rpc RenewToken(google.protobuf.Empty) returns (LoginResponse);
+
+	rpc Login(LoginRequest) returns (LoginResponse);
+
+	rpc Create(CreateRequest) returns (CreateResponse);
+}
+
+message LoginRequest {
+	string username = 1;
+	string password = 2;
+}
+
+message LoginResponse {
+	string token = 1;
+}
+
+message CreateRequest {
+	string username = 1;
+}
+
+message CreateResponse {
+	string password = 1;
+}

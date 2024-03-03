@@ -13,14 +13,14 @@ namespace Seventy.WebService;
 
 public class Program
 {
-    public static void Main(string[] args) => Main<SessionData>(args);
+    public static void Main(string[] args) => StartApp<SessionData>(args);
 
     internal static void InitSession<TSessionData>(AppUser user, TSessionData data) where TSessionData : SessionData, new()
     {
         data.Data = $"Hello {user.Username}!";
     }
 
-    private static void Main<TData>(string[] args) where TData : SessionData, new()
+    private static void StartApp<TData>(string[] args) where TData : SessionData, new()
     {
         var builder = WebApplication.CreateBuilder(args);
 

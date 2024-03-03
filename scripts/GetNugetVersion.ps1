@@ -4,7 +4,7 @@ function Get-NugetVersion {
         [string[]]$assemblyNames
     )
 
-    [xml]$projectXml = Get-Content ".\$projectFile"
+    [xml]$projectXml = Get-Content "./$projectFile"
 
     $versions = @{}
 

@@ -1,6 +1,8 @@
 # Template: PWA Client with .NET Core gRPC Backend
 
-## Prerequisites
+## Installation Instructions
+
+### Prerequisites
 
 You can run the following commands to check the versions of the required tools:
 
@@ -8,20 +10,81 @@ You can run the following commands to check the versions of the required tools:
 pwsh -File ".\scripts\CheckPrerequisites.ps1"
 ```
 
-To install the required tools, follow the instructions below:
+Make sure all tools are installed on your machine and are available in your PATH.
 
-(You need to start the terminal as administrator to install the tools via chocolatey.)
+This project requires specific versions of .NET, Node.js, PowerShell, and the Protobuf compiler to be installed. Below are the instructions for setting up your environment on both Linux (specifically for Debian-based distributions such as Ubuntu) and Windows.
 
--   Install **.NET** version **8.0** directly from the [official website](https://dotnet.microsoft.com/download/dotnet/8.0).
--   Install **Node** version **v20.11.1** via chocolatey `choco install nodejs --version=20.11.1`.
--   Install **PowerShell** version **7.4.1** via Chocolaty `choco install powershell-core --version=7.4.1`
--   Install **Protobuf compiler** version **25.2** via chocolatey `choco install protoc --version=25.2`.
--   Download the **Protobuf gRPC-Web Plugin** version **1.5.0** from the [official GitHub repository](https://github.com/grpc/grpc-web/releases) and rename the file to `protoc-gen-grpc-web.exe`.
+### Linux (Debian/Ubuntu)
 
-Make sure all these tools are installed on your machine and are available in your PATH.
+Ensure your package list and installed packages are up to date:
 
-**Note**:
-Confirm that your NuGet cache is located at the default location: `%USERPROFILE%\.nuget\packages\`.
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+Install .NET SDK 8.0:
+
+```bash
+sudo apt-get install -y dotnet-sdk-8.0
+```
+
+Install Node.js (replace `nodejs` package installation with the specific version requirement if necessary):
+
+```bash
+sudo apt-get install -y nodejs
+```
+
+Additional dependencies:
+
+```bash
+sudo apt-get install -y wget apt-transport-https software-properties-common
+```
+
+Configure the Microsoft package repository:
+
+```bash
+source /etc/os-release
+wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+sudo apt-get update
+```
+
+Install PowerShell:
+
+```bash
+sudo apt-get install -y powershell
+```
+
+### Windows
+
+To install the required tools on Windows, you will need to start the terminal as an administrator. It's recommended to use Chocolatey, a package manager for Windows, for the installations.
+
+Install .NET version 8.0:
+
+- Download and install directly from the [official .NET website](https://dotnet.microsoft.com/download/dotnet/8.0).
+
+Install Node version v20.11.1:
+
+```powershell
+choco install nodejs --version=20.11.1
+```
+
+Install PowerShell version 7.4.1:
+
+```powershell
+choco install powershell-core --version=7.4.1
+```
+
+Install Protobuf compiler version 25.2:
+
+```powershell
+choco install protoc --version=25.2
+```
+
+Download the Protobuf gRPC-Web Plugin version 1.5.0:
+
+- The plugin can be downloaded from the [official GitHub repository](https://github.com/grpc/grpc-web/releases). After downloading, rename the file to `protoc-gen-grpc-web.exe` and ensure it's accessible in your PATH.v
 
 ## Guide on how to Run the Project
 

@@ -22,25 +22,25 @@ Ensure your package list and installed packages are up to date:
 sudo apt update && sudo apt upgrade -y
 ```
 
-Install .NET SDK 8.0:
+**Install .NET SDK 8.0:**
 
 ```bash
 sudo apt-get install -y dotnet-sdk-8.0
 ```
 
-Install Node.js (replace `nodejs` package installation with the specific version requirement if necessary):
+**Install Node.js:**
 
 ```bash
 sudo apt-get install -y nodejs
 ```
 
-Additional dependencies:
+**Additional dependencies:**
 
 ```bash
 sudo apt-get install -y wget apt-transport-https software-properties-common
 ```
 
-Configure the Microsoft package repository:
+**Configure the Microsoft package repository:**
 
 ```bash
 source /etc/os-release
@@ -50,39 +50,71 @@ rm packages-microsoft-prod.deb
 sudo apt-get update
 ```
 
-Install PowerShell:
+**Install PowerShell:**
 
 ```bash
 sudo apt-get install -y powershell
 ```
 
+**Install the Protobuf compiler:**
+
+```bash
+sudo apt install -y protobuf-compiler
+```
+
+This installs the `protoc` command, which is used to compile `.proto` files into language-specific code.
+
+**Install the gRPC-Web plugin:**
+
+The Protobuf gRPC-Web Plugin is required for generating gRPC-Web client code.
+
+1. Download the Protobuf gRPC-Web Plugin version 1.5.0 for Linux:
+
+   ```bash
+   wget https://github.com/grpc/grpc-web/releases/download/1.5.0/protoc-gen-grpc-web-1.5.0-linux-x86_64 -O protoc-gen-grpc-web
+   ```
+
+2. Make the downloaded file executable:
+
+   ```bash
+   chmod +x protoc-gen-grpc-web
+   ```
+
+3. Move the file to a directory in your `PATH` to make it globally accessible:
+
+   ```bash
+   sudo mv protoc-gen-grpc-web /usr/local/bin/
+   ```
+
+After completing these steps, `protoc-gen-grpc-web` will be installed and available for use in generating gRPC-Web client code from `.proto` files.
+
 ### Windows
 
 To install the required tools on Windows, you will need to start the terminal as an administrator. It's recommended to use Chocolatey, a package manager for Windows, for the installations.
 
-Install .NET version 8.0:
+**Install .NET version 8.0:**
 
 - Download and install directly from the [official .NET website](https://dotnet.microsoft.com/download/dotnet/8.0).
 
-Install Node version v20.11.1:
+**Install Node version v20.11.1:**
 
 ```powershell
 choco install nodejs --version=20.11.1
 ```
 
-Install PowerShell version 7.4.1:
+**Install PowerShell version 7.4.1:**
 
 ```powershell
 choco install powershell-core --version=7.4.1
 ```
 
-Install Protobuf compiler version 25.2:
+**Install Protobuf compiler version 25.2:**
 
 ```powershell
 choco install protoc --version=25.2
 ```
 
-Download the Protobuf gRPC-Web Plugin version 1.5.0:
+**Download the Protobuf gRPC-Web Plugin version 1.5.0:**
 
 - The plugin can be downloaded from the [official GitHub repository](https://github.com/grpc/grpc-web/releases). After downloading, rename the file to `protoc-gen-grpc-web.exe` and ensure it's accessible in your PATH.v
 

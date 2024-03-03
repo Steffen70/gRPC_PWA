@@ -7,7 +7,7 @@
 You can run the following commands to check the versions of the required tools:
 
 ```bash
-pwsh -File ".\scripts\CheckPrerequisites.ps1"
+pwsh -File "./scripts/CheckPrerequisites.ps1"
 ```
 
 Make sure all tools are installed on your machine and are available in your PATH.
@@ -132,7 +132,7 @@ If you don't need a solution file and just build the project, you can skip this 
 To generate the dotnet solution, run the following command in the root directory of the project:
 
 ```bash
-pwsh -File ".\scripts\MakeSolution.ps1" -directoryPath ".\server_side"
+pwsh -File "./scripts/MakeSolution.ps1" -directoryPath "./server_side"
 ```
 
 This script will generate a dotnet solution in the specified directory and add all projects to it.
@@ -162,7 +162,7 @@ var svg = ResourceAccessor.ResourceName.image_name.GetSvg();
 
 ### Process Overview
 
-When the solution is cleaned or rebuilt, a PowerShell script automatically updates all project versions. The version is defined in `.\versionconfig.json`, with the following structure:
+When the solution is cleaned or rebuilt, a PowerShell script automatically updates all project versions. The version is defined in `./versionconfig.json`, with the following structure:
 
 ```json
 {

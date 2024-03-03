@@ -15,11 +15,11 @@
 	</PropertyGroup>
 
 	<Target Name="ForceClean" AfterTargets="Clean">
-		<RemoveDir Directories="$(OutDir)\..\" />
+		<RemoveDir Directories="$(OutDir)/../" />
 	</Target>
 
 	<Target Name="UpdateVersion" AfterTargets="Clean">
-		<Exec Command="pwsh -ExecutionPolicy Bypass -File $(MSBuildProjectDirectory)\..\..\scripts\UpdateVersion.ps1 -projectFile $(MSBuildProjectFile)" />
+		<Exec Command="pwsh -ExecutionPolicy Bypass -File $(MSBuildProjectDirectory)/../../scripts/UpdateVersion.ps1 -projectFile $(MSBuildProjectFile)" />
 	</Target>
 
 	<ItemGroup>
@@ -36,7 +36,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Common\Common.csproj" />
+		<ProjectReference Include="../Common/Common.csproj" />
 	</ItemGroup>
 
 </Project>

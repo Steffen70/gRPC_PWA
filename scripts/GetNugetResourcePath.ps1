@@ -11,7 +11,7 @@ function Get-NugetResourcePath {
 
     $assemblyNameLowerCase = $assemblyName.ToLower()
 
-    $assemblyPath = Join-Path $Env:USERPROFILE ".nuget\packages\${assemblyNameLowerCase}\${version}\lib\${framework}\${assemblyName}.dll"
+    $assemblyPath = Join-Path $Env:USERPROFILE ".nuget/packages/${assemblyNameLowerCase}/${version}/lib/${framework}/${assemblyName}.dll"
 
     return $assemblyPath
 }

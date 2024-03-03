@@ -6,10 +6,10 @@ $codeAnalysisCommon = "Microsoft.CodeAnalysis.Common"
 $codeAnalysisCSharp = "Microsoft.CodeAnalysis.CSharp"
 $codeAnalysisWorkspaces = "Microsoft.CodeAnalysis.Workspaces.Common"
 
-. "$PSScriptRoot\GetNugetVersion.ps1"
+. "$PSScriptRoot/GetNugetVersion.ps1"
 $versions = Get-NugetVersion -projectFile $projectFile -assemblyNames $codeAnalysisCommon, $codeAnalysisCSharp, $codeAnalysisWorkspaces
 
-. "$PSScriptRoot\GetNugetResourcePath.ps1"
+. "$PSScriptRoot/GetNugetResourcePath.ps1"
 $codeAnalysisCommonPath = Get-NugetResourcePath -assemblyName $codeAnalysisCommon -version $versions[$codeAnalysisCommon]
 $codeAnalysisCSharpPath = Get-NugetResourcePath -assemblyName $codeAnalysisCSharp -version $versions[$codeAnalysisCSharp]
 $codeAnalysisWorkspacesPath = Get-NugetResourcePath -assemblyName $codeAnalysisWorkspaces -version $versions[$codeAnalysisWorkspaces]
@@ -21,7 +21,7 @@ Add-Type -Path $codeAnalysisCommonPath
 Add-Type -Path $codeAnalysisCSharpPath
 Add-Type -Path $codeAnalysisWorkspacesPath
 
-$filePath = ".\ResourceAccessor.cs"
+$filePath = "./ResourceAccessor.cs"
 $fileContent = Get-Content -Path $filePath -Raw
 
 $tree = [Microsoft.CodeAnalysis.CSharp.CSharpSyntaxTree]::ParseText($fileContent)
@@ -35,7 +35,7 @@ $enumDeclaration = $root.DescendantNodes() | Where-Object {
 
 $newMembersList = New-Object "System.Collections.Generic.List[Microsoft.CodeAnalysis.CSharp.Syntax.EnumMemberDeclarationSyntax]"
 
-$resourceDir = ".\Resources"
+$resourceDir = "./Resources"
 Get-ChildItem -Path $resourceDir -Include *.svg -Recurse | ForEach-Object {
     $name = [System.IO.Path]::GetFileNameWithoutExtension($_.FullName)
 

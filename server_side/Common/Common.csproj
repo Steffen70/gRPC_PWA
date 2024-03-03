@@ -15,11 +15,11 @@
 	</PropertyGroup>
 
 	<Target Name="ForceClean" AfterTargets="Clean">
-		<RemoveDir Directories="$(OutDir)\..\" />
+		<RemoveDir Directories="$(OutDir)/../" />
 	</Target>
 
 	<Target Name="UpdateVersion" AfterTargets="Clean">
-		<Exec Command="pwsh -ExecutionPolicy Bypass -File $(MSBuildProjectDirectory)\..\..\scripts\UpdateVersion.ps1 -projectFile $(MSBuildProjectFile)" />
+		<Exec Command="pwsh -ExecutionPolicy Bypass -File $(MSBuildProjectDirectory)/../../scripts/UpdateVersion.ps1 -projectFile $(MSBuildProjectFile)" />
 	</Target>
 
 	<ItemGroup>
@@ -31,19 +31,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Protobuf Include="..\..\protos\*.proto" GrpcServices="Both" />
+		<Protobuf Include="../../protos/*.proto" GrpcServices="Both" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\*.svg" />
+	  <None Remove="Resources/*.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="Resources\*.svg" />
+	  <EmbeddedResource Include="Resources/*.svg" />
 	</ItemGroup>
 
 	<Target Name="GenerateResx" AfterTargets="Clean">
-		<Exec Command="pwsh -ExecutionPolicy Bypass -File $(MSBuildProjectDirectory)\..\..\scripts\GenerateResourceNameEnum.ps1 -projectFile $(MSBuildProjectFile)" />
+		<Exec Command="pwsh -ExecutionPolicy Bypass -File $(MSBuildProjectDirectory)/../../scripts/GenerateResourceNameEnum.ps1 -projectFile $(MSBuildProjectFile)" />
 	</Target>
 
 </Project>

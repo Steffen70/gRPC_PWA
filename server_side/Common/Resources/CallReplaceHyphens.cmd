@@ -1,1 +1,1 @@
-powershell -ExecutionPolicy Bypass -File "..\..\..\scripts\ReplaceHyphens.ps1"
+powershell -ExecutionPolicy Bypass -File "../../../scripts/ReplaceHyphens.ps1"

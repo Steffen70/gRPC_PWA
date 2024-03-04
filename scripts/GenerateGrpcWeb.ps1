@@ -15,6 +15,8 @@ if(-not $OutputPath) {
 
 if (-not (Test-Path -Path $OutputPath -PathType Container)) {
     New-Item -ItemType Directory -Path $OutputPath
+} else {
+    Get-ChildItem -Path $OutputPath -Recurse | Remove-Item -Force
 }
 
 $OutputPath = Resolve-Path $OutputPath

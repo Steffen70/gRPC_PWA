@@ -90,7 +90,9 @@ After completing these steps, `protoc-gen-grpc-web` will be installed and availa
 
 ### Windows
 
-To install the required tools on Windows, you will need to start the terminal as an administrator. It's recommended to use Chocolatey, a package manager for Windows, for the installations.
+I recommend you to use [Chocolatey](https://chocolatey.org/install#individual), a package manager for Windows, for the installations.
+
+To install the required tools on Windows, you will need to start the terminal as an administrator. 
 
 **Install .NET version 8.0:**
 
@@ -116,7 +118,7 @@ choco install protoc --version=25.2
 
 **Download the Protobuf gRPC-Web Plugin version 1.5.0:**
 
-- The plugin can be downloaded from the [official GitHub repository](https://github.com/grpc/grpc-web/releases). After downloading, rename the file to `protoc-gen-grpc-web.exe` and ensure it's accessible in your PATH.v
+- The plugin can be downloaded from the [official GitHub repository](https://github.com/grpc/grpc-web/releases). After downloading, rename the file to `protoc-gen-grpc-web.exe` and ensure it's accessible in your PATH.
 
 ## Guide on how to Run the Project
 

@@ -2,6 +2,30 @@
 
 This cheat sheet provides a set of common commands for working with Git in our new GitHub repository.
 
+### Set Global Configuration
+
+Set your Git username for every repository on your computer:
+
+```bash
+git config --global user.name "Steffen70"
+```
+
+Set your email address for every repository on your computer:
+
+```bash
+git config --global user.email "steffen@seventy.mx"
+```
+
+### Credential Storage
+
+Use the credential helper to store your login credentials:
+
+```bash
+git config --global credential.helper store
+```
+
+This command configures Git to save your username and password in a plain text file on your computer, simplifying the process of working with repositories where you frequently authenticate.
+
 ### Clone a repository
 
 ```bash

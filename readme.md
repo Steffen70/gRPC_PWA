@@ -56,6 +56,12 @@ sudo apt-get update
 sudo apt-get install -y powershell
 ```
 
+For **Ubuntu 23.10**, you can install PowerShell using the snap package manager:
+
+```bash
+sudo snap install powershell --classic
+```
+
 **Install the Protobuf compiler:**
 
 ```bash

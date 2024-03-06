@@ -37,7 +37,7 @@ sudo apt-get install -y nodejs
 **Additional dependencies:**
 
 ```bash
-sudo apt-get install -y wget apt-transport-https software-properties-common
+sudo apt-get install -y wget apt-transport-https software-properties-common unzip
 ```
 
 **Configure the Microsoft package repository:**
@@ -62,13 +62,96 @@ For **Ubuntu 23.10**, you can install PowerShell using the snap package manager:
 sudo snap install powershell --classic
 ```
 
-**Install the Protobuf compiler:**
+### Install the Protobuf Compiler
+
+#### Install from package manager
 
 ```bash
-sudo apt install -y protobuf-compiler
+sudo apt-get install -y protobuf-compiler
 ```
 
-This installs the `protoc` command, which is used to compile `.proto` files into language-specific code.
+#### Install from official GitHub releases
+
+**Note**: Due to compatibility issues between the latest Protobuf compiler version (25.3) and the version available via apt packages (3.21.12), using the `--js_out` flag to generate gRPC-Web client code may result in errors.
+To address this, you can download the JavaScript plugin separately, which works with the current Protobuf compiler version, allowing you to successfully generate the needed client code.
+
+To install the Protobuf compiler and ensure that it's correctly set up to compile `.proto` files into language-specific code, follow these steps. This setup includes downloading and installing `protoc` version for Linux.
+
+1. **Download Protobuf Compiler**:
+   
+   Download the Protobuf compiler (protoc) version for Linux from the official GitHub releases page.
+
+   replace the download link with the latest version from [here](https://github.com/protocolbuffers/protobuf/releases).
+
+    ```bash
+    wget https://github.com/protocolbuffers/protobuf/releases/download/v25.3/protoc-25.3-linux-x86_64.zip -O protoc.zip
+    ```
+
+2. **Unzip the Downloaded File**:
+
+    ```bash
+    unzip protoc.zip
+    ```
+
+3. **Make the `protoc` Binary Executable**:
+
+    ```bash
+    chmod +x bin/protoc
+    ```
+
+4. **Move `protoc` to a Global Directory**:
+
+    ```bash
+    sudo mv bin/protoc /usr/local/bin/
+    ```
+
+5. **Copy Standard Protobuf Includes**:
+
+    ```bash
+    sudo cp -R include/. /usr/local/include/
+    ```
+
+6. **Clean Up Installation Artifacts**:
+
+    ```bash
+    rm readme.txt -f
+    rm -r bin -f
+    rm -r include
+    rm protoc.zip
+    ```
+
+**Install the Javascript plugin for Protobuf:**
+
+1. Download the Protobuf Javascript plugin version 3.21.12 for Linux:
+
+    ```bash
+    wget https://github.com/protocolbuffers/protobuf-javascript/releases/download/v3.21.2/protobuf-javascript-3.21.2-linux-x86_64.zip -O protobuf-javascript.zip
+    ```
+
+2. Unzip the Downloaded File
+
+    ```bash
+    unzip protobuf-javascript.zip bin/protoc-gen-js
+    ```
+
+3. Make the Plugin Executable
+
+    ```bash
+    chmod +x bin/protoc-gen-js
+    ```
+
+4. Move the Plugin to a Global Directory
+
+    ```bash
+    sudo mv bin/protoc-gen-js /usr/local/bin/
+    ```
+
+5. Clean Up Installation Artifacts
+
+    ```bash
+    rm -f protobuf-javascript.zip
+    rm -r -f bin
+    ```
 
 **Install the gRPC-Web plugin:**
 
@@ -121,6 +204,10 @@ choco install powershell-core
 ```powershell
 choco install protoc
 ```
+
+**Install the Javascript plugin:**
+
+- The plugin can be downloaded from the [official GitHub repository](https://github.com/protocolbuffers/protobuf-javascript/releases). After downloading, rename the file to `protoc-gen-js.exe` and ensure it's accessible in your PATH.
 
 **Install the gRPC-Web plugin:**
 

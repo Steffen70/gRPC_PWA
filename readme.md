@@ -77,7 +77,7 @@ To address this, you can download the JavaScript plugin separately, which works 
 
 To install the Protobuf compiler and ensure that it's correctly set up to compile `.proto` files into language-specific code, follow these steps. This setup includes downloading and installing `protoc` version for Linux.
 
-1. **Download Protobuf Compiler**:
+1. Download Protobuf Compiler:
    
    Download the Protobuf compiler (protoc) version for Linux from the official GitHub releases page.
 
@@ -87,31 +87,31 @@ To install the Protobuf compiler and ensure that it's correctly set up to compil
     wget https://github.com/protocolbuffers/protobuf/releases/download/v25.3/protoc-25.3-linux-x86_64.zip -O protoc.zip
     ```
 
-2. **Unzip the Downloaded File**:
+2. Unzip the Downloaded File:
 
     ```bash
     unzip protoc.zip
     ```
 
-3. **Make the `protoc` Binary Executable**:
+3. Make the `protoc` Binary Executable:
 
     ```bash
     chmod +x bin/protoc
     ```
 
-4. **Move `protoc` to a Global Directory**:
+4. Move `protoc` to a Global Directory:
 
     ```bash
     sudo mv bin/protoc /usr/local/bin/
     ```
 
-5. **Copy Standard Protobuf Includes**:
+5. Copy Standard Protobuf Includes:
 
     ```bash
     sudo cp -R include/. /usr/local/include/
     ```
 
-6. **Clean Up Installation Artifacts**:
+6. Clean Up Installation Artifacts:
 
     ```bash
     rm readme.txt -f

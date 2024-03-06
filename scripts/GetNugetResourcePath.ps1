@@ -11,7 +11,7 @@ function Get-NugetResourcePath {
 
     $assemblyNameLowerCase = $assemblyName.ToLower()
 
-    $userHome = if ($Env:USERPROFILE) { $Env:USERPROFILE } else { $Env:HOME }
+    $userHome = if ($PSVersionTable.Platform -eq "Win32NT") { $Env:USERPROFILE } else { $Env:HOME }
 
     $assemblyPath = Join-Path $userHome ".nuget/packages/${assemblyNameLowerCase}/${version}/lib/${framework}/${assemblyName}.dll"
 

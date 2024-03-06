@@ -30,7 +30,7 @@ function Get-CommandInPath {
     )
 
     $output = $null
-    if ($Env:USERPROFILE) {
+    if ($PSVersionTable.Platform -eq "Win32NT") {
         $output = where.exe $commandName
     } else {
         $output = whereis $commandName

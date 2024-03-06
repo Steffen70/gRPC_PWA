@@ -16,30 +16,6 @@ This project requires specific versions of .NET, Node.js, PowerShell, and the Pr
 
 ### Linux (Debian/Ubuntu)
 
-Ensure your package list and installed packages are up to date:
-
-```bash
-sudo apt update && sudo apt upgrade -y
-```
-
-**Install .NET SDK 8.0:**
-
-```bash
-sudo apt-get install -y dotnet-sdk-8.0
-```
-
-**Install Node.js:**
-
-```bash
-sudo apt-get install -y nodejs
-```
-
-**Additional dependencies:**
-
-```bash
-sudo apt-get install -y wget apt-transport-https software-properties-common unzip
-```
-
 **Configure the Microsoft package repository:**
 
 ```bash
@@ -50,9 +26,17 @@ rm packages-microsoft-prod.deb
 sudo apt-get update
 ```
 
-**Install PowerShell:**
+**Install the required tools:**
 
 ```bash
+sudo apt update && sudo apt upgrade -y
+
+sudo apt-get install -y dotnet-sdk-8.0
+
+sudo apt-get install -y nodejs
+
+sudo apt-get install -y wget apt-transport-https software-properties-common unzip
+
 sudo apt-get install -y powershell
 ```
 
@@ -62,120 +46,71 @@ For **Ubuntu 23.10**, you can install PowerShell using the snap package manager:
 sudo snap install powershell --classic
 ```
 
-### Install the Protobuf Compiler
-
-#### Install from package manager
+**Install from package manager**
 
 ```bash
 sudo apt-get install -y protobuf-compiler
 ```
 
-#### Install from official GitHub releases
+**Install from official GitHub releases**
 
-**Note**: Due to compatibility issues between the latest Protobuf compiler version (25.3) and the version available via apt packages (3.21.12), using the `--js_out` flag to generate gRPC-Web client code may result in errors.
+**Note**: Due to compatibility issues between the latest Protobuf compiler version (25.3) and the version available via apt packages (3.21.12), using the `protoc --js_out=` flag to generate gRPC-Web client code may result in errors.
 To address this, you can download the JavaScript plugin separately, which works with the current Protobuf compiler version, allowing you to successfully generate the needed client code.
 
-To install the Protobuf compiler and ensure that it's correctly set up to compile `.proto` files into language-specific code, follow these steps. This setup includes downloading and installing `protoc` version for Linux.
+To install the Protobuf compiler and ensure that it's correctly set up to compile '.proto' files into language-specific code, follow these steps. This setup includes downloading and installing `protoc` version for Linux.
 
-1. Download Protobuf Compiler:
-   
-   Download the Protobuf compiler (protoc) version for Linux from the official GitHub releases page.
+Replace the download link with the latest version from [here](https://github.com/protocolbuffers/protobuf/releases).
 
-   replace the download link with the latest version from [here](https://github.com/protocolbuffers/protobuf/releases).
+```bash
+wget https://github.com/protocolbuffers/protobuf/releases/download/v25.3/protoc-25.3-linux-x86_64.zip -O protoc.zip
 
-    ```bash
-    wget https://github.com/protocolbuffers/protobuf/releases/download/v25.3/protoc-25.3-linux-x86_64.zip -O protoc.zip
-    ```
+unzip protoc.zip
 
-2. Unzip the Downloaded File:
+chmod +x bin/protoc
 
-    ```bash
-    unzip protoc.zip
-    ```
+sudo mv bin/protoc /usr/local/bin/
 
-3. Make the `protoc` Binary Executable:
+sudo cp -R include/. /usr/local/include/
 
-    ```bash
-    chmod +x bin/protoc
-    ```
-
-4. Move `protoc` to a Global Directory:
-
-    ```bash
-    sudo mv bin/protoc /usr/local/bin/
-    ```
-
-5. Copy Standard Protobuf Includes:
-
-    ```bash
-    sudo cp -R include/. /usr/local/include/
-    ```
-
-6. Clean Up Installation Artifacts:
-
-    ```bash
-    rm readme.txt -f
-    rm -r bin -f
-    rm -r include
-    rm protoc.zip
-    ```
+rm readme.txt -f
+rm -r bin -f
+rm -r include
+rm protoc.zip
+```
 
 **Install the Javascript plugin for Protobuf:**
 
-1. Download the Protobuf Javascript plugin version 3.21.12 for Linux:
+```bash
+wget https://github.com/protocolbuffers/protobuf-javascript/releases/download/v3.21.2/protobuf-javascript-3.21.2-linux-x86_64.zip -O protobuf-javascript.zip
 
-    ```bash
-    wget https://github.com/protocolbuffers/protobuf-javascript/releases/download/v3.21.2/protobuf-javascript-3.21.2-linux-x86_64.zip -O protobuf-javascript.zip
-    ```
 
-2. Unzip the Downloaded File
+unzip protobuf-javascript.zip bin/protoc-gen-js
 
-    ```bash
-    unzip protobuf-javascript.zip bin/protoc-gen-js
-    ```
+chmod +x bin/protoc-gen-js
 
-3. Make the Plugin Executable
+sudo mv bin/protoc-gen-js /usr/local/bin/
 
-    ```bash
-    chmod +x bin/protoc-gen-js
-    ```
-
-4. Move the Plugin to a Global Directory
-
-    ```bash
-    sudo mv bin/protoc-gen-js /usr/local/bin/
-    ```
-
-5. Clean Up Installation Artifacts
-
-    ```bash
-    rm -f protobuf-javascript.zip
-    rm -r -f bin
-    ```
+rm -f protobuf-javascript.zip
+rm -r -f bin
+```
 
 **Install the gRPC-Web plugin:**
 
 The Protobuf gRPC-Web Plugin is required for generating gRPC-Web client code.
 
-1. Download the Protobuf gRPC-Web Plugin version 1.5.0 for Linux:
+```bash
+wget https://github.com/grpc/grpc-web/releases/download/1.5.0/protoc-gen-grpc-web-1.5.0-linux-x86_64 -O protoc-gen-grpc-web
 
-   ```bash
-   wget https://github.com/grpc/grpc-web/releases/download/1.5.0/protoc-gen-grpc-web-1.5.0-linux-x86_64 -O protoc-gen-grpc-web
-   ```
+chmod +x protoc-gen-grpc-web
 
-2. Make the downloaded file executable:
+sudo mv protoc-gen-grpc-web /usr/local/bin/
+```
 
-   ```bash
-   chmod +x protoc-gen-grpc-web
-   ```
+Run the following command in the 'client_side' directory to **generate the gRPC-Web client code**:
 
-3. Move the file to a directory in your `PATH` to make it globally accessible:
-
-   ```bash
-   sudo mv protoc-gen-grpc-web /usr/local/bin/
-   ```
-
-After completing these steps, `protoc-gen-grpc-web` will be installed and available for use in generating gRPC-Web client code from `.proto` files.
+```bash
+yarn generate-proto
+```
 
 ### Windows
 
@@ -232,32 +167,11 @@ pwsh -File "./scripts/MakeSolution.ps1" -directoryPath "./server_side"
 
 This script will generate a dotnet solution in the specified directory and add all projects to it.
 
-## Protocol Buffers and gRPC
-
-### Generate gRPC files for the .NET Core Backend
-
-The gRPC files are referenced in the `Common.csproj` file. The Protobuf files will automatically be compiled to C# files when the project is built.
-
-### Generate Protobuf and gRPC-Web files
-
-I've added a batch file to the `client_side` directory that will generate the Protobuf and gRPC-Web files for the client.
-
-## Image Resources
-
-I've incorporated an additional script into the build process.
-This script dynamically updates the `Seventy.Common.ResourceAccessor.ResourceName` enum with the names of all images.
-
-To retrieve SVG images programmatically, utilize the `GetSvg` method available on the enum, as shown below:
-
-```csharp
-var svg = ResourceAccessor.ResourceName.image_name.GetSvg();
-```
-
 ## Versioning in the Project
 
 ### Process Overview
 
-When the solution is cleaned or rebuilt, a PowerShell script automatically updates all project versions. The version is defined in `./versionconfig.json`, with the following structure:
+When the solution is cleaned or rebuilt, a PowerShell script automatically updates all project versions. The version is defined in './versionconfig.json', with the following structure:
 
 ```json
 {

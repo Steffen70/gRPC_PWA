@@ -24,6 +24,25 @@ function Get-CommandVersion {
     }
 }
 
+function Get-CommandInPath {
+    param (
+        [string]$commandName
+    )
+
+    $output = $null
+    if ($Env:USERPROFILE) {
+        $output = where.exe $commandName
+    } else {
+        $output = whereis $commandName
+    }
+
+    if ($output -match "\/") {
+        return "Installed"
+    } else {
+        return "Not installed"
+    }
+}
+
 
 # .NET version
 Get-CommandVersion -command "dotnet"
@@ -34,9 +53,11 @@ Get-CommandVersion -command "node"
 # Protobuf Compiler version
 Get-CommandVersion -command "protoc" -successPattern "libprotoc (\d+\.\d+)"
 
+# Protobuf JavaScript has no CLI to get its version, so we can check if it's installed
+$toolVersions["protoc-gen-js"] = Get-CommandInPath -commandName "protoc-gen-js"
+
 # Assuming you have a specific execution command for the Protobuf gRPC-Web Plugin
 Get-CommandVersion -command "protoc-gen-grpc-web" -arguments "--version" -successPattern "(\d+\.\d+\.\d+)"
-
 
 $toolVersions.GetEnumerator() | Sort-Object Name | ForEach-Object { 
     Write-Host "$($_.Name): $($_.Value)" 

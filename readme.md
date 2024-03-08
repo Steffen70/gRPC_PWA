@@ -108,8 +108,34 @@ sudo mv protoc-gen-grpc-web /usr/local/bin/
 
 Run the following command in the 'client_side' directory to **generate the gRPC-Web client code**:
 
+You need to have yarn installed to run the following command. If you don't have yarn installed, you can install it using the following command:
+
+```bash	
+npm install --global yarn
+```
+
 ```bash
 yarn generate-proto
+```
+
+You can start the development server using the following commands:
+
+**Server-Side:**
+
+```bash
+cd ./server_side/WebService
+
+dotnet clean
+
+dotnet run
+```
+
+**Client-Side:**
+
+```bash
+cd ./client_side
+
+yarn start
 ```
 
 ### Windows

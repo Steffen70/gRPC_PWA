@@ -8,7 +8,7 @@ function App() {
     useEffect(() => {
         const client = new GreeterClient("https://localhost:5001");
         const request = new HelloRequest();
-        request.setName("John");
+        request.setName("Hugo");
 
         client.helloWorld(request, {}, (err, response) => {
             if (err) {

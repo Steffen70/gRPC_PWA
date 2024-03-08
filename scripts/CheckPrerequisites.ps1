@@ -31,7 +31,9 @@ function Get-CommandInPath {
 
     $output = $null
     if ($PSVersionTable.Platform -eq "Win32NT") {
-        $output = where.exe $commandName
+        $null = where.exe $commandName 2>&1
+
+        $output = if ($LASTEXITCODE -eq 0) { "/" } else { "" }
     } else {
         $output = whereis $commandName
     }

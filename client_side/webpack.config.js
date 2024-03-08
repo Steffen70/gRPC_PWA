@@ -6,7 +6,7 @@ module.exports = (env, argv) => {
     const isDevelopment = argv.mode !== "production";
 
     return {
-        entry: "./src/index.js",
+        entry: "./src/index.jsx",
         output: {
             path: path.resolve(__dirname, "../docs"),
             filename: "bundle.js",
@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
         module: {
             rules: [
                 {
-                    test: /\.js$/,
+                    test: /\.(js|jsx)$/,
                     exclude: /node_modules/,
                     use: {
                         loader: "babel-loader",
@@ -28,6 +28,9 @@ module.exports = (env, argv) => {
                     },
                 },
             ],
+        },
+        resolve: {
+            extensions: [".js", ".jsx"],
         },
         plugins: [
             new HtmlWebpackPlugin({

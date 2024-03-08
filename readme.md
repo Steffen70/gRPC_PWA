@@ -135,6 +135,8 @@ dotnet run
 ```bash
 cd ./client_side
 
+yarn install
+
 yarn start
 ```
 

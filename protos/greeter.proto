@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "Seventy.Common";
+
+package greeter;
+
+service Greeter {
+	rpc HelloWorld(HelloRequest) returns (HelloResponse);
+}
+
+message HelloRequest {
+	string name = 1;
+}
+
+message HelloResponse {
+    string message = 1;
+}

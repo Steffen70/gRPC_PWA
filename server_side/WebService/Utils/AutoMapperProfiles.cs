@@ -1,6 +1,6 @@
 using AutoMapper;
 using Seventy.Common.Model;
-using SwissPension.SP7.Common;
+using Seventy.Common;
 
 namespace Seventy.WebService.Utils;
 

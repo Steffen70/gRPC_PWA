@@ -10,7 +10,7 @@ using Seventy.Common.Model;
 using Seventy.WebService.Model;
 using Seventy.WebService.Utils.Extensions;
 using Seventy.WebService.Utils.Services;
-using SwissPension.SP7.Common;
+using Seventy.Common;
 
 namespace Seventy.WebService.Services;
 

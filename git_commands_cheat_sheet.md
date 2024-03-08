@@ -7,13 +7,13 @@ This cheat sheet provides a set of common commands for working with Git in our n
 Set your Git username for every repository on your computer:
 
 ```bash
-git config --global user.name "Steffen70"
+git config --global user.name $username
 ```
 
 Set your email address for every repository on your computer:
 
 ```bash
-git config --global user.email "steffen@seventy.mx"
+git config --global user.email $email
 ```
 
 ### Credential Storage

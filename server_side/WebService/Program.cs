@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Seventy.Common.Model;
 using Seventy.WebService.Hubs;
@@ -23,6 +24,9 @@ public class Program
     private static void StartApp<TData>(string[] args) where TData : SessionData, new()
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.WebHost.ConfigureKestrel(options 
+            => options.ConfigureEndpointDefaults(lo => lo.Protocols = HttpProtocols.Http1AndHttp2));
 
         builder.Services.AddDbContext<LoginContext>(options 
             => options.UseSqlite(builder.Configuration.GetConnectionString("LoginContext")));
@@ -75,8 +79,10 @@ public class Program
 
         // Configure the HTTP request pipeline.
         app.UseHttpsRedirection();
-        
+
         app.UseGrpcWeb(new GrpcWebOptions { DefaultEnabled = true });
+
+        app.UseCors("AllowAll");
 
         app.UseAuthentication();
 

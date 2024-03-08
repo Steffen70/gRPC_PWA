@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "SwissPension.SP7.Common";
+option csharp_namespace = "Seventy.Common";
 
 package auth;
 

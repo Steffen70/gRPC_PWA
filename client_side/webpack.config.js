@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
         entry: "./src/index.jsx",
         output: {
             path: path.resolve(__dirname, "../docs"),
-            filename: "bundle.js",
+            filename: "bundle.min.js",
         },
         mode: isDevelopment ? "development" : "production",
         module: {

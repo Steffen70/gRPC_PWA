@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
-module.exports = (env, argv) => {
+module.exports = (_env, argv) => {
     const isDevelopment = argv.mode !== "production";
 
     return {
@@ -20,7 +20,12 @@ module.exports = (env, argv) => {
                     use: {
                         loader: "babel-loader",
                         options: {
-                            presets: ["@babel/preset-env", "@babel/preset-react"],
+                            presets: [
+                                "@babel/preset-env",
+                                ["@babel/preset-react", {
+                                    "runtime": "automatic"
+                                }]
+                            ],
                             plugins: [
                                 isDevelopment && require.resolve("react-refresh/babel")
                             ].filter(Boolean),

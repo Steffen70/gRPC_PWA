@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { GreeterClient } from "../generated/greeter_grpc_web_pb";
-import { HelloRequest, HelloReply } from "../generated/greeter_pb";
+import { HelloRequest } from "../generated/greeter_pb";
 
-function App() {
+function HelloWorld() {
     const [message, setMessage] = useState("");
 
     useEffect(() => {

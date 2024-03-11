@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "module": "es6",
+        "target": "es5",
+        "jsx": "react-jsx",
+        "allowJs": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/shadcn/*"]
+        }
+    },
+    "include": ["src/shadcn/**/*"]
+}

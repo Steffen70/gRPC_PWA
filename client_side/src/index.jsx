@@ -1,5 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import App from "./components/App";
+import LoginForm from "./components/LoginForm";
+import "./globals.css";
 
-createRoot(document.getElementById("root")).render(<App />);
+createRoot(document.getElementById("root")).render(<LoginForm />);

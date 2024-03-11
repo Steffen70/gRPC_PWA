@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { GreeterClient } from "../generated/greeter_grpc_web_pb";
 import { HelloRequest } from "../generated/greeter_pb";
 
-function HelloWorld() {
+export default function HelloWorld() {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
@@ -27,5 +27,3 @@ function HelloWorld() {
         </div>
     );
 }
-
-export default App;

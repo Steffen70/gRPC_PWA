@@ -20,8 +20,6 @@ export default function HelloWorld() {
     }, []);
 
     return (
-        <div>
-            <h1>{message}</h1>
-        </div>
+        <h1>{message}</h1>
     );
 }

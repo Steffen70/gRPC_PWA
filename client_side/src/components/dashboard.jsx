@@ -1,8 +1,9 @@
+import HelloWorld from "./hello-world";
 
 export default function Dashboard() {
     return (
         <div>
-            <h1>Dashboard</h1>
+            <HelloWorld />
         </div>
     )
 }

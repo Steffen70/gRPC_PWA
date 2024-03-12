@@ -20,7 +20,7 @@ public static class JwtBearerOptionsExtensions
             OnMessageReceived = context =>
             {
                 // Read the token out of the query string and set it as the token for SignalR hub requests
-                // Todo: This is a temporary solution, add a single sign-on token to not expose the login token in the URL
+                // TODO: This is a temporary solution, add a single sign-on token to not expose the login token in the URL
                 var accessToken = context.Request.Query["access_token"];
 
                 var path = context.HttpContext.Request.Path;

@@ -19,7 +19,7 @@ $versionString = "$($version.major).$($version.minor).$($version.patch)"
 $projectContent = Get-Content $projectFile -Raw
 
 # Regex to find and replace the <Version> tag
-$regex = '<Version>.*?</Version>'
+$regex = "<Version>.*?</Version>"
 $replacement = "<Version>$versionString</Version>"
 $newProjectContent = [regex]::Replace($projectContent, $regex, $replacement)
 

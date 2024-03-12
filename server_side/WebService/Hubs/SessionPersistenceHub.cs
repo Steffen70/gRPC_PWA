@@ -46,12 +46,12 @@ public class SessionPersistenceHub<TSessionData> : Hub where TSessionData : Sess
 
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
-        // Todo: Remove the connection from the cache on disconnect
+        // TODO: Remove the connection from the cache on disconnect
 
         // When debugging and hitting a breakpoint, the connection is not removed from the cache
         // I commented out the code below to avoid the issue
 
-        // Todo: Don't remove the connection from the cache on disconnect directly but after a certain time to avoid the issue
+        // TODO: Don't remove the connection from the cache on disconnect directly but after a certain time to avoid the issue
 
         //if (ConnectionsByRefId.TryGetValue(RefGuid, out var connections))
         //{

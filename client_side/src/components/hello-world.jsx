@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { GreeterClient } from "../generated/greeter_grpc_web_pb";
 import { HelloRequest } from "../generated/greeter_pb";
 
 export default function HelloWorld() {
     const [message, setMessage] = useState("");
+    const { grpcClients } = useSession();
 
     useEffect(() => {
-        const client = new GreeterClient("https://localhost:5001");
+        const client = grpcClients["greeterClient"];
+            
         const request = new HelloRequest();
-        request.setName("Hugo");
+        request.setName("World");
 
         client.helloWorld(request, {}, (err, response) => {
             if (err) {
@@ -23,7 +24,7 @@ export default function HelloWorld() {
 
     return (
         <div>
-            <h1>Hello World and {message}</h1>
+            <h1>{message}</h1>
         </div>
     );
 }

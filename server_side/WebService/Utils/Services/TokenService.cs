@@ -18,7 +18,7 @@ public class TokenService
 
     //internal static readonly SymmetricSecurityKey TokenKey = new(UTF8.GetBytes(Guid.NewGuid().ToString()));
 
-    // Todo: Remove the hardcoded key and use a key that is generated once when the application starts
+    // TODO: Remove the hardcoded key and use a key that is generated once when the application starts
     internal static readonly SymmetricSecurityKey TokenKey = new("12345678901234567890123456789012"u8.ToArray());
 
     public string CreateToken(AppUser user)
@@ -39,7 +39,7 @@ public class TokenService
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            // Todo: Make the token expiration time configurable
+            // TODO: Make the token expiration time configurable
             Expires = DateTime.Now.AddDays(TokenExpirationDays),
             SigningCredentials = creds
         };

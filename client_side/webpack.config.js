@@ -35,15 +35,15 @@ module.exports = (_env, argv) => {
                 {
                     test: /\.css$/,
                     use: [
-                        'style-loader',
-                        'css-loader',
+                        "style-loader",
+                        "css-loader",
                         {
-                            loader: 'postcss-loader',
+                            loader: "postcss-loader",
                             options: {
                                 postcssOptions: {
                                     plugins: [
-                                        require('tailwindcss'),
-                                        require('autoprefixer'),
+                                        require("tailwindcss"),
+                                        require("autoprefixer"),
                                     ],
                                 },
                             },
@@ -52,8 +52,8 @@ module.exports = (_env, argv) => {
                 },
                 {
                     test: /\.(ts|tsx)$/,
-                    include: [path.resolve(__dirname, 'src/shadcn')],
-                    use: 'ts-loader',
+                    include: [path.resolve(__dirname, "src/shadcn")],
+                    use: "ts-loader",
                     exclude: /node_modules/,
                 },
             ],

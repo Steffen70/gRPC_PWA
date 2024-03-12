@@ -4,7 +4,7 @@ using Seventy.Common;
 
 namespace Seventy.WebService.Services;
 
-[AllowAnonymous]
+[Authorize]
 public class GreeterService : Greeter.GreeterBase
 {
     public override Task<HelloResponse> HelloWorld(HelloRequest request, ServerCallContext context)

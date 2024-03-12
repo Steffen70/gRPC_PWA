@@ -7,18 +7,18 @@ import { useSession } from "./session_provider";
 import { Loader2 } from "lucide-react";
 
 export default function LoginForm() {
-    const { setUsername, setPassword, isSessionEstablished, isInProcess } = useSession();
+    const { setUsername, setPassword, isSessionEstablished, isLoginInProgress } = useSession();
     const [inputUsername, setInputUsername] = useState("");
     const [inputPassword, setInputPassword] = useState("");
     const [attemptedLogin, setAttemptedLogin] = useState(false);
 
     const timeoutRef = useRef();
     useEffect(() => {
-        if (isInProcess) {
+        if (isLoginInProgress) {
             setAttemptedLogin(true);
         }
 
-        if (!isInProcess && attemptedLogin && !isSessionEstablished) {
+        if (!isLoginInProgress && attemptedLogin && !isSessionEstablished) {
 
             setInputPassword("");
 
@@ -32,14 +32,14 @@ export default function LoginForm() {
             }, 3000);
 
         }
-    }, [isInProcess, attemptedLogin]);
+    }, [isLoginInProgress, attemptedLogin]);
 
     const onLogin = () => {
         setUsername(inputUsername);
         setPassword(inputPassword);
     };
 
-    const cardDescription = !isInProcess && attemptedLogin && !isSessionEstablished
+    const cardDescription = !isLoginInProgress && attemptedLogin && !isSessionEstablished
         ? <CardDescription className="text-primary">Login failed. Please check your username and password.</CardDescription>
         : <CardDescription>Please enter your username and password to login.</CardDescription>;
 
@@ -62,16 +62,16 @@ export default function LoginForm() {
                 <CardContent className="space-y-4">
                     <div className="space-y-2">
                         <Label htmlFor="username">Username</Label>
-                        <Input id="username" value={inputUsername} onChange={(e) => setInputUsername(e.target.value)} placeholder="Username" required type="text" disabled={isInProcess} />
+                        <Input id="username" value={inputUsername} onChange={(e) => setInputUsername(e.target.value)} placeholder="Username" required type="text" disabled={isLoginInProgress} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="password">Password</Label>
-                        <Input id="password" value={inputPassword} onChange={(e) => setInputPassword(e.target.value)} placeholder="Password" required type="password" onKeyDown={handleKeyDown} disabled={isInProcess} />
+                        <Input id="password" value={inputPassword} onChange={(e) => setInputPassword(e.target.value)} placeholder="Password" required type="password" onKeyDown={handleKeyDown} disabled={isLoginInProgress} />
                     </div>
                 </CardContent>
                 <CardFooter>
-                    <Button className="w-full" onClick={onLogin} disabled={isInProcess}>
-                        {isInProcess ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : ""}
+                    <Button className="w-full" onClick={onLogin} disabled={isLoginInProgress}>
+                        {isLoginInProgress ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : ""}
                         Login
                     </Button>
                 </CardFooter>

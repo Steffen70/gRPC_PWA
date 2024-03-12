@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSession } from "./session_provider";
-import { HelloRequest } from "../generated/greeter_pb";
+import { Empty } from '../protobuf-javascript/google/protobuf/empty_pb.js';
 
 export default function HelloWorld() {
     const [message, setMessage] = useState("");
@@ -8,16 +8,12 @@ export default function HelloWorld() {
 
     useEffect(() => {
         const client = grpcClients["greeterClient"];
-            
-        const request = new HelloRequest();
-        request.setName("World");
 
-        client.helloWorld(request, {}, (err, response) => {
+        client.helloWorld(new Empty(), {}, (err, response) => {
             if (err) {
                 console.error(err);
             } else {
                 console.log(response.getMessage());
-
                 setMessage(response.getMessage());
             }
         });

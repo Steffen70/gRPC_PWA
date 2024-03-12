@@ -25,10 +25,10 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.WebHost.ConfigureKestrel(options 
+        builder.WebHost.ConfigureKestrel(options
             => options.ConfigureEndpointDefaults(lo => lo.Protocols = HttpProtocols.Http1AndHttp2));
 
-        builder.Services.AddDbContext<LoginContext>(options 
+        builder.Services.AddDbContext<LoginContext>(options
             => options.UseSqlite(builder.Configuration.GetConnectionString("LoginContext")));
 
         builder.Services.AddHttpContextAccessor();
@@ -53,11 +53,13 @@ public class Program
 
         builder.Services.AddGrpc();
 
-        builder.Services.AddCors(o => o.AddPolicy("AllowAll", policyBuilder =>
+        var _clients = builder.Configuration.GetSection("Clients").Get<string[]>()!;
+        builder.Services.AddCors(o => o.AddPolicy("ClientPolicy", policyBuilder =>
         {
-            policyBuilder.AllowAnyOrigin()
+            policyBuilder.WithOrigins(_clients)
                 .AllowAnyMethod()
                 .AllowAnyHeader()
+                .AllowCredentials()
                 .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
         }));
 
@@ -82,7 +84,7 @@ public class Program
 
         app.UseGrpcWeb(new GrpcWebOptions { DefaultEnabled = true });
 
-        app.UseCors("AllowAll");
+        app.UseCors("ClientPolicy");
 
         app.UseAuthentication();
 

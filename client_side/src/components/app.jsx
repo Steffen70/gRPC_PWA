@@ -1,5 +1,5 @@
-import { useSession } from "./session-provider";
-import LoginForm from "./login-form";
+import { useSession } from "./session_provider";
+import LoginForm from "./login_form";
 import Dashboard from "./dashboard";
 
 export default function App() {

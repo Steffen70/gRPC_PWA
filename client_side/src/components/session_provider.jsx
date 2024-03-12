@@ -1,24 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { createAuthenticatedClient } from '../utils/authenticated_client_factory';
 import { AuthClient } from "../generated/auth_grpc_web_pb";
 import { LoginRequest } from "../generated/auth_pb";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 
 import { GreeterClient } from "../generated/greeter_grpc_web_pb";
-
-function createAuthenticatedClient(ClientConstructor, baseAddress, token) {
-    const authInterceptor = (options, nextCall) => {
-        options.metadata = options.metadata || {};
-        options.metadata["Authorization"] = `Bearer ${token}`;
-        return nextCall(options);
-    };
-
-    const client = new ClientConstructor(baseAddress, null, {
-        unaryInterceptors: [authInterceptor],
-        streamInterceptors: [authInterceptor],
-    });
-
-    return client;
-}
 
 
 const SessionContext = createContext();
@@ -49,10 +35,12 @@ export const SessionProvider = ({ children, baseAddress }) => {
                     });
                 });
 
-                const token = response.getToken();
+                const authHeader = response.getToken();
+                const token = authHeader.substring("Bearer ".length);
 
                 // FIXME: Create a connection-token to establish a SignalR connection, don"t use the token directly
                 const messageHubUrl = `${baseAddress}hubs/session-hub?access_token=${token}`;
+
                 const hubConnection = new HubConnectionBuilder()
                     .withUrl(messageHubUrl)
                     .withAutomaticReconnect()

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSession } from "./session_provider";
 import { HelloRequest } from "../generated/greeter_pb";
 
 export default function HelloWorld() {

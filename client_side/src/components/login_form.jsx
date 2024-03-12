@@ -3,7 +3,7 @@ import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card }
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useSession } from "./session-provider";
+import { useSession } from "./session_provider";
 import { Loader2 } from "lucide-react";
 
 export default function LoginForm() {
@@ -50,8 +50,8 @@ export default function LoginForm() {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen bg-gray-100">
-            <Card className="w-full max-w-md mx-auto mt-10">
+        <div className="flex items-center justify-center h-screen bg-muted">
+            <Card className="w-full max-w-md mx-auto mt-10 rounded-lg" style={{ borderColor: "hsl(var(--border))" }}>
                 <CardHeader className="text-center">
                     <CardTitle className="text-2xl font-bold">
                         <span className="text-primary">Swiss</span>

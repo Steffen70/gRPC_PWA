@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { createAuthenticatedClient } from '../utils/authenticated_client_factory';
+import { Empty } from '../protobuf-javascript/google/protobuf/empty_pb.js';
 import { AuthClient } from "../generated/auth_grpc_web_pb";
 import { LoginRequest } from "../generated/auth_pb";
 import { HubConnectionBuilder } from "@microsoft/signalr";
@@ -15,7 +16,8 @@ export const SessionProvider = ({ children, baseAddress }) => {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [grpcClients, setGrpcClients] = useState({});
-    const [isInProcess, setIsInProcess] = useState(false);
+    const [isTokenRenewalInProgress, setIsTokenRenewalInProgress] = useState(true);
+    const [isLoginInProgress, setIsLoginInProgress] = useState(false);
     const [isSessionEstablished, setIsSessionEstablished] = useState(false);
 
     async function establishSession(token) {
@@ -31,7 +33,7 @@ export const SessionProvider = ({ children, baseAddress }) => {
 
         await hubConnection.start();
 
-        // TODO: Evaluate if it is safe to store the token in local storage - I don't think it is
+        // FIXME: Bind token to ip address to prevent token theft
         localStorage.setItem("token", token);
 
         const clients = {
@@ -45,7 +47,7 @@ export const SessionProvider = ({ children, baseAddress }) => {
 
     async function login() {
         if (username && password) {
-            setIsInProcess(true);
+            setIsLoginInProgress(true);
 
             const authClient = new AuthClient(baseAddress);
             const request = new LoginRequest();
@@ -70,7 +72,7 @@ export const SessionProvider = ({ children, baseAddress }) => {
                 setUsername(null);
                 setPassword(null);
             } finally {
-                setIsInProcess(false);
+                setIsLoginInProgress(false);
             }
         } else {
             setGrpcClients({});
@@ -87,14 +89,17 @@ export const SessionProvider = ({ children, baseAddress }) => {
         async function renewToken() {
             const token = localStorage.getItem("token");
 
-            if (!token)
+            if (!token) {
+                setIsTokenRenewalInProgress(false);
+                
                 return;
+            }
 
             const authClient = createAuthenticatedClient(AuthClient, baseAddress, token);
 
             try {
                 await new Promise((resolve, reject) => {
-                    authClient.renewToken({}, (err, response) => {
+                    authClient.renewToken(new Empty(), {}, (err, response) => {
                         if (err) reject(err);
                         else resolve(response);
                     });
@@ -103,8 +108,10 @@ export const SessionProvider = ({ children, baseAddress }) => {
                 await establishSession(token);
             } catch (error) {
                 console.error("Token renewal failed:", error);
-                
+
                 localStorage.removeItem("token");
+            } finally {
+                setIsTokenRenewalInProgress(false);
             }
         }
 
@@ -112,7 +119,7 @@ export const SessionProvider = ({ children, baseAddress }) => {
     }, []);
 
     return (
-        <SessionContext.Provider value={{ username, setUsername, password, setPassword, grpcClients, isSessionEstablished, isInProcess }}>
+        <SessionContext.Provider value={{ username, setUsername, password, setPassword, grpcClients, isSessionEstablished, isLoginInProgress, isTokenRenewalInProgress }}>
             {children}
         </SessionContext.Provider>
     );

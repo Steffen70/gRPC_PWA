@@ -1,4 +1,4 @@
-# Template: PWA Client with .NET Core gRPC Backend
+# Template: gRPC-Web Client with .NET Core Backend
 
 ## Installation Instructions
 

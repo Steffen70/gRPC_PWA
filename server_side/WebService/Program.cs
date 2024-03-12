@@ -53,10 +53,10 @@ public class Program
 
         builder.Services.AddGrpc();
 
-        var _clients = builder.Configuration.GetSection("Clients").Get<string[]>()!;
+        var clients = builder.Configuration.GetSection("Clients").Get<string[]>()!;
         builder.Services.AddCors(o => o.AddPolicy("ClientPolicy", policyBuilder =>
         {
-            policyBuilder.WithOrigins(_clients)
+            policyBuilder.WithOrigins(clients)
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials()

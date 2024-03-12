@@ -21,7 +21,7 @@ export const SessionProvider = ({ children, baseAddress }) => {
     const [isSessionEstablished, setIsSessionEstablished] = useState(false);
 
     async function establishSession(token) {
-        // FIXME: Create a connection-token to establish a SignalR connection, don"t use the token directly
+        // FIXME: Create a connection-token to establish a SignalR connection, don't use the token directly
         const messageHubUrl = `${baseAddress}hubs/session-hub?access_token=${token}`;
 
         const hubConnection = new HubConnectionBuilder()
@@ -91,7 +91,7 @@ export const SessionProvider = ({ children, baseAddress }) => {
 
             if (!token) {
                 setIsTokenRenewalInProgress(false);
-                
+
                 return;
             }
 

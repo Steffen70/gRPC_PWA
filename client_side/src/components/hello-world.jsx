@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GreeterClient } from "../generated/greeter_grpc_web_pb";
 import { HelloRequest } from "../generated/greeter_pb";
 

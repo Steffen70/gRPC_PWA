@@ -1,6 +1,10 @@
 import "./globals.css";
-import React from "react";
 import { createRoot } from "react-dom/client";
-import LoginForm from "./components/login-form";
+import { SessionProvider } from './components/session-provider';
+import App from "./components/app";
 
-createRoot(document.getElementById("root")).render(<LoginForm />);
+createRoot(document.getElementById("root")).render(
+    <SessionProvider>
+        <App />
+    </SessionProvider>,
+);

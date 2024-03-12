@@ -19,6 +19,8 @@
 const grpc = {};
 grpc.web = require('grpc-web');
 
+
+var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js')
 const proto = {};
 proto.greeter = require('./greeter_pb.js');
 
@@ -77,16 +79,16 @@ proto.greeter.GreeterPromiseClient =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.greeter.HelloRequest,
+ *   !proto.google.protobuf.Empty,
  *   !proto.greeter.HelloResponse>}
  */
 const methodDescriptor_Greeter_HelloWorld = new grpc.web.MethodDescriptor(
   '/greeter.Greeter/HelloWorld',
   grpc.web.MethodType.UNARY,
-  proto.greeter.HelloRequest,
+  google_protobuf_empty_pb.Empty,
   proto.greeter.HelloResponse,
   /**
-   * @param {!proto.greeter.HelloRequest} request
+   * @param {!proto.google.protobuf.Empty} request
    * @return {!Uint8Array}
    */
   function(request) {
@@ -97,7 +99,7 @@ const methodDescriptor_Greeter_HelloWorld = new grpc.web.MethodDescriptor(
 
 
 /**
- * @param {!proto.greeter.HelloRequest} request The
+ * @param {!proto.google.protobuf.Empty} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
@@ -118,7 +120,7 @@ proto.greeter.GreeterClient.prototype.helloWorld =
 
 
 /**
- * @param {!proto.greeter.HelloRequest} request The
+ * @param {!proto.google.protobuf.Empty} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata

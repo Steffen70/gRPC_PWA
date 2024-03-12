@@ -18,6 +18,31 @@ export const SessionProvider = ({ children, baseAddress }) => {
     const [isInProcess, setIsInProcess] = useState(false);
     const [isSessionEstablished, setIsSessionEstablished] = useState(false);
 
+    async function establishSession(token) {
+        // FIXME: Create a connection-token to establish a SignalR connection, don"t use the token directly
+        const messageHubUrl = `${baseAddress}hubs/session-hub?access_token=${token}`;
+
+        const hubConnection = new HubConnectionBuilder()
+            .withUrl(messageHubUrl)
+            .withAutomaticReconnect()
+            .build();
+
+        // TODO: Set up event handlers for the hubConnection
+
+        await hubConnection.start();
+
+        // TODO: Evaluate if it is safe to store the token in local storage - I don't think it is
+        localStorage.setItem("token", token);
+
+        const clients = {
+            authClient: createAuthenticatedClient(AuthClient, baseAddress, token),
+            greeterClient: createAuthenticatedClient(GreeterClient, baseAddress, token),
+        };
+
+        setGrpcClients(clients);
+        setIsSessionEstablished(true);
+    }
+
     async function login() {
         if (username && password) {
             setIsInProcess(true);
@@ -38,25 +63,7 @@ export const SessionProvider = ({ children, baseAddress }) => {
                 const authHeader = response.getToken();
                 const token = authHeader.substring("Bearer ".length);
 
-                // FIXME: Create a connection-token to establish a SignalR connection, don"t use the token directly
-                const messageHubUrl = `${baseAddress}hubs/session-hub?access_token=${token}`;
-
-                const hubConnection = new HubConnectionBuilder()
-                    .withUrl(messageHubUrl)
-                    .withAutomaticReconnect()
-                    .build();
-
-                // TODO: Set up event handlers for the hubConnection
-
-                await hubConnection.start();
-
-                const clients = {
-                    authClient: createAuthenticatedClient(AuthClient, baseAddress, token),
-                    greeterClient: createAuthenticatedClient(GreeterClient, baseAddress, token),
-                };
-
-                setGrpcClients(clients);
-                setIsSessionEstablished(true);
+                await establishSession(token);
             } catch (error) {
                 console.error("Login failed:", error);
 
@@ -77,7 +84,31 @@ export const SessionProvider = ({ children, baseAddress }) => {
     }, [username, password]);
 
     useEffect(() => {
-        // TODO: Check if the token is stored in local storage and use it to re-establish the session
+        async function renewToken() {
+            const token = localStorage.getItem("token");
+
+            if (!token)
+                return;
+
+            const authClient = createAuthenticatedClient(AuthClient, baseAddress, token);
+
+            try {
+                await new Promise((resolve, reject) => {
+                    authClient.renewToken({}, (err, response) => {
+                        if (err) reject(err);
+                        else resolve(response);
+                    });
+                });
+
+                await establishSession(token);
+            } catch (error) {
+                console.error("Token renewal failed:", error);
+                
+                localStorage.removeItem("token");
+            }
+        }
+
+        renewToken();
     }, []);
 
     return (

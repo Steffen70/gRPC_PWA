@@ -4,12 +4,10 @@ option csharp_namespace = "Seventy.Common";
 
 package greeter;
 
-service Greeter {
-	rpc HelloWorld(HelloRequest) returns (HelloResponse);
-}
+import "google/protobuf/empty.proto";
 
-message HelloRequest {
-	string name = 1;
+service Greeter {
+	rpc HelloWorld(google.protobuf.Empty) returns (HelloResponse);
 }
 
 message HelloResponse {

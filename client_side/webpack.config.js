@@ -9,7 +9,7 @@ module.exports = (_env, argv) => {
         entry: "./src/index.jsx",
         output: {
             path: path.resolve(__dirname, "../docs"),
-            filename: "bundle.min.js",
+            filename: "bundle.min.js"
         },
         mode: isDevelopment ? "development" : "production",
         module: {
@@ -22,15 +22,16 @@ module.exports = (_env, argv) => {
                         options: {
                             presets: [
                                 "@babel/preset-env",
-                                ["@babel/preset-react", {
-                                    "runtime": "automatic"
-                                }]
+                                [
+                                    "@babel/preset-react",
+                                    {
+                                        runtime: "automatic"
+                                    }
+                                ]
                             ],
-                            plugins: [
-                                isDevelopment && require.resolve("react-refresh/babel")
-                            ].filter(Boolean),
-                        },
-                    },
+                            plugins: [isDevelopment && require.resolve("react-refresh/babel")].filter(Boolean)
+                        }
+                    }
                 },
                 {
                     test: /\.css$/,
@@ -41,44 +42,41 @@ module.exports = (_env, argv) => {
                             loader: "postcss-loader",
                             options: {
                                 postcssOptions: {
-                                    plugins: [
-                                        require("tailwindcss"),
-                                        require("autoprefixer"),
-                                    ],
-                                },
-                            },
-                        },
-                    ],
+                                    plugins: [require("tailwindcss"), require("autoprefixer")]
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
                     test: /\.(ts|tsx)$/,
                     include: [path.resolve(__dirname, "src/shadcn")],
                     use: "ts-loader",
-                    exclude: /node_modules/,
-                },
-            ],
+                    exclude: /node_modules/
+                }
+            ]
         },
         resolve: {
             extensions: [".js", ".jsx", ".ts", ".tsx"],
             alias: {
-                "@": path.resolve(__dirname, "src/shadcn"),
+                "@": path.resolve(__dirname, "src/shadcn")
             }
         },
         plugins: [
             new HtmlWebpackPlugin({
-                template: "./src/index.html",
+                template: "./src/index.html"
             }),
-            isDevelopment && new ReactRefreshWebpackPlugin(),
+            isDevelopment && new ReactRefreshWebpackPlugin()
         ].filter(Boolean),
         devServer: {
             static: {
-                directory: path.join(__dirname, "../docs"),
+                directory: path.join(__dirname, "../docs")
             },
             hot: true,
             open: true,
             watchFiles: {
-                paths: [path.join(__dirname, "./src/**/*")],
-            },
-        },
+                paths: [path.join(__dirname, "./src/**/*")]
+            }
+        }
     };
 };

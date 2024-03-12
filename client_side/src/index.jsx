@@ -9,5 +9,5 @@ const baseAddress = "https://localhost:5001/";
 createRoot(document.getElementById("root")).render(
     <SessionProvider baseAddress={baseAddress}>
         <App />
-    </SessionProvider>,
+    </SessionProvider>
 );

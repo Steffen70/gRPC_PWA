@@ -5,7 +5,7 @@ class AuthInterceptor {
 
     intercept(request, invoker) {
         const metadata = request.getMetadata();
-        metadata['Authorization'] = `Bearer ${this.token}`;
+        metadata["Authorization"] = `Bearer ${this.token}`;
 
         const call = invoker(request);
 
@@ -19,13 +19,12 @@ class AuthInterceptor {
     }
 }
 
-
 export function createAuthenticatedClient(ClientConstructor, baseAddress, token) {
     const authInterceptor = new AuthInterceptor(token);
 
     const client = new ClientConstructor(baseAddress, null, {
         unaryInterceptors: [authInterceptor],
-        streamInterceptors: [authInterceptor],
+        streamInterceptors: [authInterceptor]
     });
 
     return client;

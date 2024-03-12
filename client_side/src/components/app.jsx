@@ -8,8 +8,8 @@ export default function App() {
 
     if (isTokenRenewalInProgress) {
         return (
-            <div className="flex justify-center items-center h-screen text-primary">
-                <Loader2 className="h-12 w-12 animate-spin"/>
+            <div className="flex h-screen items-center justify-center text-primary">
+                <Loader2 className="h-12 w-12 animate-spin" />
             </div>
         );
     }

@@ -1,12 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { createAuthenticatedClient } from '../utils/authenticated_client_factory';
-import { Empty } from '../protobuf-javascript/google/protobuf/empty_pb.js';
+import { createAuthenticatedClient } from "../utils/authenticated_client_factory";
+import { Empty } from "../protobuf-javascript/google/protobuf/empty_pb.js";
 import { AuthClient } from "../generated/auth_grpc_web_pb";
 import { LoginRequest } from "../generated/auth_pb";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 
 import { GreeterClient } from "../generated/greeter_grpc_web_pb";
-
 
 const SessionContext = createContext();
 
@@ -24,10 +23,7 @@ export const SessionProvider = ({ children, baseAddress }) => {
         // FIXME: Create a connection-token to establish a SignalR connection, don't use the token directly
         const messageHubUrl = `${baseAddress}hubs/session-hub?access_token=${token}`;
 
-        const hubConnection = new HubConnectionBuilder()
-            .withUrl(messageHubUrl)
-            .withAutomaticReconnect()
-            .build();
+        const hubConnection = new HubConnectionBuilder().withUrl(messageHubUrl).withAutomaticReconnect().build();
 
         // TODO: Set up event handlers for the hubConnection
 
@@ -38,7 +34,7 @@ export const SessionProvider = ({ children, baseAddress }) => {
 
         const clients = {
             authClient: createAuthenticatedClient(AuthClient, baseAddress, token),
-            greeterClient: createAuthenticatedClient(GreeterClient, baseAddress, token),
+            greeterClient: createAuthenticatedClient(GreeterClient, baseAddress, token)
         };
 
         setGrpcClients(clients);
@@ -79,7 +75,6 @@ export const SessionProvider = ({ children, baseAddress }) => {
             setIsSessionEstablished(false);
         }
     }
-
 
     useEffect(() => {
         login();

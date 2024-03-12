@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSession } from "./session_provider";
-import { Empty } from '../protobuf-javascript/google/protobuf/empty_pb.js';
+import { Empty } from "../protobuf-javascript/google/protobuf/empty_pb.js";
 
 export default function HelloWorld() {
     const [message, setMessage] = useState("");
@@ -19,7 +19,5 @@ export default function HelloWorld() {
         });
     }, []);
 
-    return (
-        <h1>{message}</h1>
-    );
+    return <h1>{message}</h1>;
 }

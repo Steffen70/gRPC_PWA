@@ -30,6 +30,7 @@
         "postcss": "^8.4.35",
         "postcss-loader": "^8.1.1",
         "prettier": "^3.2.5",
+        "prettier-plugin-tailwindcss": "^0.5.12",
         "react-refresh": "^0.14.0",
         "style-loader": "^3.3.4",
         "tailwind-merge": "^2.2.1",
@@ -44,6 +45,8 @@
     "scripts": {
         "start": "webpack serve",
         "build": "webpack --mode production",
-        "generate-proto": "pwsh -File '../scripts/GenerateGrpcWeb.ps1'"
+        "generate-proto": "pwsh -File '../scripts/GenerateGrpcWeb.ps1'",
+        "prettier": "prettier --ignore-path .gitignore \"src/components/**/*.+(ts|tsx|js|jsx|json|css|md|mdx|html)\"",
+        "format": "yarn prettier -- --write"
     }
 }

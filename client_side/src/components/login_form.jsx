@@ -19,18 +19,15 @@ export default function LoginForm() {
         }
 
         if (!isLoginInProgress && attemptedLogin && !isSessionEstablished) {
-
             setInputPassword("");
 
             document.getElementById("password").focus();
 
-            if (timeoutRef.current)
-                clearTimeout(timeoutRef.current);
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
             timeoutRef.current = setTimeout(() => {
                 setAttemptedLogin(false);
             }, 3000);
-
         }
     }, [isLoginInProgress, attemptedLogin]);
 
@@ -39,19 +36,22 @@ export default function LoginForm() {
         setPassword(inputPassword);
     };
 
-    const cardDescription = !isLoginInProgress && attemptedLogin && !isSessionEstablished
-        ? <CardDescription className="text-primary">Login failed. Please check your username and password.</CardDescription>
-        : <CardDescription>Please enter your username and password to login.</CardDescription>;
+    const cardDescription =
+        !isLoginInProgress && attemptedLogin && !isSessionEstablished ? (
+            <CardDescription className="text-primary">Login failed. Please check your username and password.</CardDescription>
+        ) : (
+            <CardDescription>Please enter your username and password to login.</CardDescription>
+        );
 
-    const handleKeyDown = (event) => {
+    const handleKeyDown = event => {
         if (event.key === "Enter") {
             onLogin();
         }
     };
 
     return (
-        <div className="flex items-center justify-center h-screen bg-muted">
-            <Card className="w-full max-w-md mx-auto mt-10 rounded-lg" style={{ borderColor: "hsl(var(--border))" }}>
+        <div className="flex h-screen items-center justify-center bg-muted">
+            <Card className="mx-auto mt-10 w-full max-w-md rounded-lg" style={{ borderColor: "hsl(var(--border))" }}>
                 <CardHeader className="text-center">
                     <CardTitle className="text-2xl font-bold">
                         <span className="text-primary">Swiss</span>
@@ -62,11 +62,20 @@ export default function LoginForm() {
                 <CardContent className="space-y-4">
                     <div className="space-y-2">
                         <Label htmlFor="username">Username</Label>
-                        <Input id="username" value={inputUsername} onChange={(e) => setInputUsername(e.target.value)} placeholder="Username" required type="text" disabled={isLoginInProgress} />
+                        <Input id="username" value={inputUsername} onChange={e => setInputUsername(e.target.value)} placeholder="Username" required type="text" disabled={isLoginInProgress} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="password">Password</Label>
-                        <Input id="password" value={inputPassword} onChange={(e) => setInputPassword(e.target.value)} placeholder="Password" required type="password" onKeyDown={handleKeyDown} disabled={isLoginInProgress} />
+                        <Input
+                            id="password"
+                            value={inputPassword}
+                            onChange={e => setInputPassword(e.target.value)}
+                            placeholder="Password"
+                            required
+                            type="password"
+                            onKeyDown={handleKeyDown}
+                            disabled={isLoginInProgress}
+                        />
                     </div>
                 </CardContent>
                 <CardFooter>

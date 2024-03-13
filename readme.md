@@ -110,12 +110,12 @@ Run the following command in the 'client_side' directory to **generate the gRPC-
 
 You need to have yarn installed to run the following command. If you don't have yarn installed, you can install it using the following command:
 
-```bash	
+```bash
 npm install --global yarn
 ```
 
 ```bash
-yarn generate-proto
+yarn generate
 ```
 
 You can start the development server using the following commands:
@@ -144,11 +144,11 @@ yarn start
 
 I recommend you to use [Chocolatey](https://chocolatey.org/install#individual), a package manager for Windows, for the installations.
 
-To install the required tools on Windows, you will need to start the terminal as an administrator. 
+To install the required tools on Windows, you will need to start the terminal as an administrator.
 
 **Install .NET SDK 8.0:**
 
-- Download and install directly from the [official .NET website](https://dotnet.microsoft.com/download/dotnet/8.0).
+-   Download and install directly from the [official .NET website](https://dotnet.microsoft.com/download/dotnet/8.0).
 
 **Install Node.js:**
 
@@ -170,11 +170,11 @@ choco install protoc
 
 **Install the Javascript plugin:**
 
-- The plugin can be downloaded from the [official GitHub repository](https://github.com/protocolbuffers/protobuf-javascript/releases). After downloading, rename the file to `protoc-gen-js.exe` and ensure it's accessible in your PATH.
+-   The plugin can be downloaded from the [official GitHub repository](https://github.com/protocolbuffers/protobuf-javascript/releases). After downloading, rename the file to `protoc-gen-js.exe` and ensure it's accessible in your PATH.
 
 **Install the gRPC-Web plugin:**
 
-- The plugin can be downloaded from the [official GitHub repository](https://github.com/grpc/grpc-web/releases). After downloading, rename the file to `protoc-gen-grpc-web.exe` and ensure it's accessible in your PATH.
+-   The plugin can be downloaded from the [official GitHub repository](https://github.com/grpc/grpc-web/releases). After downloading, rename the file to `protoc-gen-grpc-web.exe` and ensure it's accessible in your PATH.
 
 ## Guide on how to Run the Project
 

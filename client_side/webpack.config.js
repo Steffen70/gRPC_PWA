@@ -8,7 +8,7 @@ module.exports = (_env, argv) => {
     return {
         entry: "./src/index.jsx",
         output: {
-            path: path.resolve(__dirname, "../docs"),
+            path: path.resolve(__dirname, "dist"),
             filename: "bundle.min.js"
         },
         mode: isDevelopment ? "development" : "production",
@@ -70,7 +70,7 @@ module.exports = (_env, argv) => {
         ].filter(Boolean),
         devServer: {
             static: {
-                directory: path.join(__dirname, "../docs")
+                directory: path.join(__dirname, "dist")
             },
             hot: true,
             open: true,

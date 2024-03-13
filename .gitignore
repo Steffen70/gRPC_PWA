@@ -66,8 +66,8 @@ appsettings*.secrets.json
 publish/
 
 # Custom files/directories
-*/UpdateAsseblies/*
-*/dist/*
+dist/
+generated/
 *.pem
 *.zip
 *.p8

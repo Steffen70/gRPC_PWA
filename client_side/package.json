@@ -46,7 +46,6 @@
         "start": "webpack serve",
         "build": "webpack --mode production",
         "generate": "pwsh -File ../scripts/GenerateGrpcWeb.ps1",
-        "prettier": "prettier --ignore-path .gitignore \"src/components/**/*.+(ts|tsx|js|jsx|json|css|md|mdx|html)\"",
-        "format": "yarn prettier -- --write"
+        "format": "prettier --ignore-path .gitignore --write \"src/components/**/*.+(ts|tsx|js|jsx|json|css|md|mdx|html)\""
     }
 }

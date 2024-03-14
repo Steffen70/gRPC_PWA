@@ -24,6 +24,7 @@
         "babel-loader": "^9.1.3",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",
+        "cross-env": "^7.0.3",
         "css-loader": "^6.10.0",
         "eslint": "^8.57.0",
         "html-webpack-plugin": "^5.6.0",
@@ -43,8 +44,8 @@
         "webpack-dev-server": "^5.0.2"
     },
     "scripts": {
-        "start": "webpack serve",
-        "build": "webpack --mode production",
+        "start": "cross-env SERVICE_BASE_ADDRESS=https://localhost:5001/ webpack serve --mode development",
+        "build": "cross-env SERVICE_BASE_ADDRESS=https://localhost:5001/ webpack --mode production",
         "generate": "pwsh -File ../scripts/GenerateGrpcWeb.ps1",
         "format": "prettier --ignore-path .gitignore --write \"src/components/**/*.+(ts|tsx|js|jsx|json|css|md|mdx|html)\""
     }

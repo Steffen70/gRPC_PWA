@@ -3,8 +3,9 @@ import { createRoot } from "react-dom/client";
 import { SessionProvider } from "./components/session_provider";
 import App from "./components/app";
 
-// TODO: Add the base address during the build process
-const baseAddress = "https://localhost:5001/";
+// This gets replaced by the webpack DefinePlugin with the actual value of the environment variable during build
+// You can find the build script in package.json
+const baseAddress = process.env.SERVICE_BASE_ADDRESS;
 
 createRoot(document.getElementById("root")).render(
     <SessionProvider baseAddress={baseAddress}>

@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -25,8 +26,12 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.WebHost.ConfigureKestrel(options
-            => options.ConfigureEndpointDefaults(lo => lo.Protocols = HttpProtocols.Http1AndHttp2));
+        // TODO: Configure with a real certificate for production
+        builder.WebHost.ConfigureKestrel(options => options.ListenLocalhost(5001, listenOptions =>
+        {
+            listenOptions.UseHttps();
+            listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+        }));
 
         builder.Services.AddDbContext<LoginContext>(options
             => options.UseSqlite(builder.Configuration.GetConnectionString("LoginContext")));

@@ -176,6 +176,12 @@ choco install protoc
 
 -   The plugin can be downloaded from the [official GitHub repository](https://github.com/grpc/grpc-web/releases). After downloading, rename the file to `protoc-gen-grpc-web.exe` and ensure it's accessible in your PATH.
 
+**Trust the development certificate:**
+
+```powershell
+dotnet dev-certs https --trust
+```
+
 ## Guide on how to Run the Project
 
 ### Admin User

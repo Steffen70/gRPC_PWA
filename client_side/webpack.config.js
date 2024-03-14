@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 module.exports = (_env, argv) => {
@@ -65,6 +66,9 @@ module.exports = (_env, argv) => {
         plugins: [
             new HtmlWebpackPlugin({
                 template: "./src/index.html"
+            }),
+            new webpack.DefinePlugin({
+                "process.env.SERVICE_BASE_ADDRESS": JSON.stringify(process.env.SERVICE_BASE_ADDRESS)
             }),
             isDevelopment && new ReactRefreshWebpackPlugin()
         ].filter(Boolean),

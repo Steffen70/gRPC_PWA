@@ -6,11 +6,15 @@ const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin"
 module.exports = (_env, argv) => {
     const isDevelopment = argv.mode !== "production";
 
+    const versionConfig = require("../versionconfig.json").version;
+    const version = `${versionConfig.major}.${versionConfig.minor}.${versionConfig.patch}`;
+      
+
     return {
         entry: "./src/index.jsx",
         output: {
             path: path.resolve(__dirname, "dist"),
-            filename: "bundle.min.js"
+            filename: `bundle-${version}.min.js`
         },
         mode: isDevelopment ? "development" : "production",
         module: {

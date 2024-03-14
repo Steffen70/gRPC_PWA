@@ -63,44 +63,8 @@ sudo apt-get install -y nodejs
 sudo apt-get install -y wget apt-transport-https software-properties-common unzip
 
 sudo apt-get install -y powershell
-```
 
-For **Ubuntu 23.10**, you can install PowerShell using the snap package manager:
-
-```bash
-sudo snap install powershell --classic
-```
-
-**Install from package manager**
-
-```bash
 sudo apt-get install -y protobuf-compiler
-```
-
-**Install from official GitHub releases**
-
-**Note**: Due to compatibility issues between the latest Protobuf compiler version (25.3) and the version available via apt packages (3.21.12), using the `protoc --js_out=` flag to generate gRPC-Web client code may result in errors.
-To address this, you can download the JavaScript plugin separately, which works with the current Protobuf compiler version, allowing you to successfully generate the needed client code.
-
-To install the Protobuf compiler and ensure that it's correctly set up to compile '.proto' files into language-specific code, follow these steps. This setup includes downloading and installing `protoc` version for Linux.
-
-Replace the download link with the latest version from [here](https://github.com/protocolbuffers/protobuf/releases).
-
-```bash
-wget https://github.com/protocolbuffers/protobuf/releases/download/v25.3/protoc-25.3-linux-x86_64.zip -O protoc.zip
-
-unzip protoc.zip
-
-chmod +x bin/protoc
-
-sudo mv bin/protoc /usr/local/bin/
-
-sudo cp -R include/. /usr/local/include/
-
-rm readme.txt -f
-rm -r bin -f
-rm -r include
-rm protoc.zip
 ```
 
 **Install the Javascript plugin for Protobuf:**

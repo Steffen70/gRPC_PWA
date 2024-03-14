@@ -14,7 +14,32 @@ Make sure all tools are installed on your machine and are available in your PATH
 
 This project requires specific versions of .NET, Node.js, PowerShell, and the Protobuf compiler to be installed. Below are the instructions for setting up your environment on both Linux (specifically for Debian-based distributions such as Ubuntu) and Windows.
 
-### Linux (Debian/Ubuntu)
+#### Trust the development certificate
+
+I've generated a development certificate for the web server, because gRPC-Web requires HTTPS. And dotnet dev-certs --trust command is not available on Linux.
+Trust the certificate on your host windows and WSL2 using the following commands:
+
+**Linux:**
+
+```bash
+sudo cp cert/localhost.crt /usr/local/share/ca-certificates/localhost.crt
+sudo update-ca-certificates
+```
+
+WSL2 is not required, just trust the certificate on your host machine. And ignore the linux instructions.
+
+**Windows:**
+
+```powershell
+Import-Certificate -FilePath .\cert\localhost.crt -CertStoreLocation Cert:\LocalMachine\Root
+```
+
+You may need to run PowerShell as an administrator for the command to succeed. After importing the certificate, you might need to restart your browser to ensure the changes take effect.
+
+**Note**: The development certificate is only for development purposes. It is not recommended to use it in a production environment.
+Replace the certificate with a valid one if you are deploying the application to a production environment.
+
+### Linux Ubuntu
 
 **Configure the Microsoft package repository:**
 
@@ -106,40 +131,6 @@ chmod +x protoc-gen-grpc-web
 sudo mv protoc-gen-grpc-web /usr/local/bin/
 ```
 
-Run the following command in the 'client_side' directory to **generate the gRPC-Web client code**:
-
-You need to have yarn installed to run the following command. If you don't have yarn installed, you can install it using the following command:
-
-```bash
-npm install --global yarn
-```
-
-```bash
-yarn generate
-```
-
-You can start the development server using the following commands:
-
-**Server-Side:**
-
-```bash
-cd ./server_side/WebService
-
-dotnet clean
-
-dotnet run
-```
-
-**Client-Side:**
-
-```bash
-cd ./client_side
-
-yarn install
-
-yarn start
-```
-
 ### Windows
 
 I recommend you to use [Chocolatey](https://chocolatey.org/install#individual), a package manager for Windows, for the installations.
@@ -176,10 +167,42 @@ choco install protoc
 
 -   The plugin can be downloaded from the [official GitHub repository](https://github.com/grpc/grpc-web/releases). After downloading, rename the file to `protoc-gen-grpc-web.exe` and ensure it's accessible in your PATH.
 
-**Trust the development certificate:**
+### Common Steps
 
-```powershell
-dotnet dev-certs https --trust
+**Note**: The following steps are common for both Linux and Windows.
+
+Run the following command in the 'client_side' directory to **generate the gRPC-Web client code**:
+
+You need to have yarn installed to run the following command. If you don't have yarn installed, you can install it using the following command:
+
+```bash
+npm install --global yarn
+```
+
+```bash
+yarn generate
+```
+
+You can start the development server using the following commands:
+
+**Server-Side:**
+
+```bash
+cd ./server_side/WebService
+
+dotnet clean
+
+dotnet run
+```
+
+**Client-Side:**
+
+```bash
+cd ./client_side
+
+yarn install
+
+yarn start
 ```
 
 ## Guide on how to Run the Project

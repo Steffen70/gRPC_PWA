@@ -28,7 +28,7 @@ internal static class ServiceProviderExtensions
 
         return data;
     }
-    
+
     public static void SeedDataBase(this IServiceProvider serviceProvider)
     {
         using var scope = serviceProvider.CreateScope();
@@ -47,9 +47,9 @@ internal static class ServiceProviderExtensions
             await Task.Delay(5000);
 
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.Write(@"Admin password: ");
+            Console.Write(@"Admin password");
             Console.ResetColor();
-            Console.WriteLine($@"""{password}""");
+            Console.WriteLine($@": ""{password}""");
         });
     }
 }

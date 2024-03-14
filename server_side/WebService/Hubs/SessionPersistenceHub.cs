@@ -33,13 +33,13 @@ public class SessionPersistenceHub<TSessionData> : Hub where TSessionData : Sess
 
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine($@"Connection added: {Context.ConnectionId}");
-        Console.ForegroundColor = ConsoleColor.White;
+        Console.ResetColor();
 
         _sessionService.ReleaseData();
 
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine($@"Session data released: {RefGuid}");
-        Console.ForegroundColor = ConsoleColor.White;
+        Console.ResetColor();
 
         await base.OnConnectedAsync();
     }
@@ -64,7 +64,7 @@ public class SessionPersistenceHub<TSessionData> : Hub where TSessionData : Sess
 
         //Console.ForegroundColor = ConsoleColor.Cyan;
         //Console.WriteLine($@"Connection removed: {Context.ConnectionId}");
-        //Console.ForegroundColor = ConsoleColor.White;
+        //Console.ResetColor();
 
         await base.OnDisconnectedAsync(exception);
     }

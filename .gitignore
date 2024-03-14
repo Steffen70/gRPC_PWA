@@ -68,9 +68,9 @@ publish/
 # Custom files/directories
 dist/
 generated/
-*.pem
+# *.pem
 *.zip
-*.p8
+# *.p8
 *.ps1.txt
 *.sln
 *.db*

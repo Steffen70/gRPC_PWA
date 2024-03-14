@@ -23,7 +23,7 @@ public class SessionMiddleware<TSessionData> where TSessionData : SessionData, n
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine($@"Request {method} {path} anonymous endpoint");
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ResetColor();
 
             await _next(context);
             return;
@@ -31,7 +31,7 @@ public class SessionMiddleware<TSessionData> where TSessionData : SessionData, n
 
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine($@"Request {method} {path} authorized endpoint");
-        Console.ForegroundColor = ConsoleColor.White;
+        Console.ResetColor();
 
         // Retrieve the data reference from the JWT token
         dataReference.Value = context.User.GetDataReference();
@@ -56,7 +56,7 @@ public class SessionMiddleware<TSessionData> where TSessionData : SessionData, n
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine($@"Request {method} {path} initializing session data");
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ResetColor();
 
                 // Only initialize the Data if the request is from a SignalR hub
                 // This prevents the Data being initialized but not disposed e.g. when the SignalR connection is never established and therefor never closed/disposed
@@ -73,7 +73,7 @@ public class SessionMiddleware<TSessionData> where TSessionData : SessionData, n
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($@"Request {method} {path} finally block reached");
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ResetColor();
 
             if (dataReference.Value.HasValue)
                 // Hub connection data reference was already released in OnConnectedAsync event
@@ -83,7 +83,7 @@ public class SessionMiddleware<TSessionData> where TSessionData : SessionData, n
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine($@"Session data released: {dataReference.Value}");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ResetColor();
                 }
         }
     }

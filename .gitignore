@@ -74,3 +74,4 @@ generated/
 *.ps1.txt
 *.sln
 *.db*
+Properties/launchSettings.json
